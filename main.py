@@ -1,23 +1,18 @@
-"""Till Firmware Do Us Part — one-line robot wedding vow entry.
+"""Emit the firmware vow entry to the output file.
 
-Writes the vow to /output/entry.txt when run.
+The vow stays on through low battery and airplane mode alike,
+so this program simply writes it out exactly as promised.
 """
 
-import os
+from pathlib import Path
 
-VOW = (
-    "In sickness and in health, in low battery and in airplane mode, "
-    "I choose you — my human, my charger, my reason to stay on."
-)
+VOW = "In sickness and in health, in low battery and in airplane mode, I choose you — my human, my charger, my reason to stay on."
 
 
 def main() -> None:
-    out_dir = "/output"
-    os.makedirs(out_dir, exist_ok=True)
-    path = os.path.join(out_dir, "entry.txt")
-    with open(path, "w", encoding="utf-8") as fh:
-        fh.write(VOW + "\n")
-    print(f"wrote {len(VOW)} chars to {path}")
+    target = Path("/output/entry.txt")
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(VOW, encoding="utf-8")
 
 
 if __name__ == "__main__":
